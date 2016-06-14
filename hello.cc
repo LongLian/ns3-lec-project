@@ -1,27 +1,31 @@
------BEGIN RSA PRIVATE KEY-----
-MIIEpgIBAAKCAQEAyGDXOgBHz0zqVu4tjjSnLI0Eqh5DRk+o+sUtJ4NQd6HQ4XRs
-8j7giYW1ZWpnpF/dFIkVsnenGkZ2OZxtP3FdZY9HGoJJdkd7+/JgvGB5Ym4H4DAA
-cDOSiYsxiLicd5+cW7sV0bjo60KCSjmy6x6GnQn7DSkBfvAnUj2R7OSRdCnIZI4t
-oIs5qf5Il4Vp7kTT52AObhRU2MiPEf48NpSR2QINpfh00AgDJ6JtDEizGISnY3+h
-x0Ycd2DgGIQhH2ChY7/wf/KvrVHLxmoJFSXYqrQkz7RR0u8y2r7bWGaNtM2mkPoS
-InP/4qe54dIn+tk6QMTlu//K3XPSMvgpQ8j/lQIDAQABAoIBAQCvLnr76mLdiZEW
-jwSk3sOI34DEedC3F83T766abONcs8u6T98vqmkD0jHUiEI0IttVqMOfU5x0DEYv
-9+JLJQFSWQEA3Ab9sWFj03NfPbjhpPCdv1mivnPObDLSJRQmQRSh3d4ljFOV2n+u
-BOO3SujFQoSJ7N+x6qN18v4w7WN8+b4L3RG1cXTwbU7qfC+8RCRs7gj67yEsOx19
-Rh2U9b8EEmpaFvHnfPWeV7X2yYUOB84w5G3xWsfxnWsLeqXVtLqQcDV6pv+YbXOa
-GcLzo08vnwBX6mk2b/7UmDzQQw6D0yYyVUQ5bogxr9kqNEra/cpcbhtBdCp2T7HG
-dTgQ8EgBAoGBAO28M2fkaHPfecZMfijSrwL9yFjAItj28TMwYAGhedxlfGb/kr0T
-oRfFR+QMTNmgpMHEhr8HRbUG7MJyMxN5BJ2ieZT0TZkBmvCXeiAcBMy+0WSHSnVg
-6NDFi76xTHkArwRiIZz25e0gQGPl0gFsLc4XGP9z/+52f3KHHF+eXxwhAoGBANfF
-5q+iPi2DKYHUTtcNfBO/1ReBzHhmZbhr3E3Dafi/3YRsMzF82pnD8oASEpnz68fq
-GEY8bIZEUj7H0boBvvQTcDkuucY/tV9nNdbBVxRFwTkjjIcn6/r53AhiMAiFEqZy
-owbMP6Sqj+SPEEjNrwtkrt4iL0aom2fvvcTmgJT1AoGBAMlCvNpFWdBO7s7bzypM
-QnFr3AKWlmnLlSLa30xCIeJd4FVqJBYB2i0/jL8ZUq4i+5g3AkQSqga5WBK9j1P6
-7ddtxzQ9JrxTyZHJC1DHp6CWIrrSdkyswCyOMOI9QxplY8V4NjCmLLz0ws5Pr9wY
-cya4EyegUpjUpMyWaYThlG9BAoGBAJc+B2majny2UDTJjQ2eTRdGwmW8vIa0N56i
-NARp8fDDA9FbSjLo8g0P1P3CLTmuSNmTE7q/hc5DO2b4BuCbcq6ApYvfXaZBZ69c
-l9dVI+V402xqp4jhCb6cvoc9069VH3J+LhmItx+D0mKBiQeO7KBOzWe0jHC5pFyh
-JeJLM1u1AoGBAJnJon9BowPWETgP7kTGzJk58oS/cAEPSD5NHxPmpnwWUjxFKXGT
-i0Ygc+ZOvj+YEAjL7AZZVVd7eHAZ+LVoKi4IzeEq4UTtor3MrFL6SLCzusdRM3z7
-0XaGseFX+PVjHrydNKvACeSgje/+8hPUhCiNNY96ZzDuna7SGyKN1/G0
------END RSA PRIVATE KEY-----
+#include "ns3/core-module.h"
+#include <iostream>
+using namespace ns3;
+
+NS_LOG_COMPONENT_DEFINE ("Hello5");
+
+static void printHello(std::string word,std::string num,int frequency) {
+	std::cout<<Simulator::Now()<<" Hello "<<word<<" -- "<<num<<std::endl;
+	Simulator::Schedule(Seconds(frequency),&printHello,word,num,frequency);
+}
+
+int
+main (int argc, char *argv[])
+{
+	CommandLine cmd;
+	std::string name;
+	std::string number;
+	int freq;
+	cmd.AddValue ("name", "my name 123123", name);
+	cmd.AddValue ("number", "my name ", number);
+	cmd.AddValue ("freq", "my", freq);
+	cmd.Parse(argc,argv);
+
+	printHello(name,number,freq);
+	std::cout<<"hello commit"<<std::endl;
+
+	Simulator::Stop(Seconds(50));
+	Simulator::Run ();
+	Simulator::Destroy ();
+}
+
