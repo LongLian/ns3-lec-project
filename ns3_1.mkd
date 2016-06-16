@@ -1,0 +1,48 @@
+#NS3培训第一次实验报告
+###姓名：陶月
+
+###学号：2013010912026
+
+##代码书写
+
+* 声明了一个叫Hello5的日志组件;
+
+* 定义printHello函数，有三个参数，名字和学号由std::string型变量表示，显示频率由int 型变量表示；
+* 
+printHello函数内部：输出姓名和学号，由Simulator::Schedule函数注册下一个事件，在frequency秒后，再次调用printHello函数函数，并输入参数name，number，frequency；
+
+* 定义命令行参数CommandLine cmd，添加name，number，frequency变量，由命令行输入；
+
+* Simulator::Stop(Seconds(50))：模拟50s时停止；
+
+* Simulator::Run ()：开始运行；
+
+* Simulator::Destroy ()：清理并进行资源回收；
+
+##程序运行
+
+#####命令1： ./waf --run "scratch/hello --name=TaoYue --number=2013010912026 --freq=5" ：
+
+* 编译运行hello.cc文件，输入参数：
+
+2. --name=TaoYue 
+
+     --number=2013010912026
+
+     --freq=5
+
+* 运行结果：每5秒一个结果，到45s结束。
+
+#####命令2： ./waf --run "scratch/hello --name=TaoYue --number=2013010912026 --freq=5" | wc -l：
+
+* 由wc运行计算出输出的行数。
+
+* 运行结果：每共输出11行。
+
+#####命令3： ./waf --run "scratch/hello --name=TaoYue --number=2013010912026 --freq=5" | grep “+1”：
+
+* 由grep运行筛选出含有“+1”字符的行结果。
+
+* 运行结果：10s和15s被筛选出来。
+#####运行结果截图：
+![运行结果截图](http://ww4.sinaimg.cn/mw690/005Cglysgw1f4x0horzukj30zy0g0al5.jpg)
