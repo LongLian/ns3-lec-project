@@ -2,7 +2,7 @@
 ###拓扑1截图如下：
 ![](http://ww3.sinaimg.cn/mw1024/005Cglysgw1f55k2yz0vcj31860ihjw8.jpg)
 
-*  获得cap包third：0-0，0-1，3-0，4-0；
+*  获得cap包third：0-0，0-1，3-0，6-0；
 *  采用了CSMA信道和WIFI信道，STA线性速度远离AP；
 *  服务器为10.1.1.4；
 *  客户10.1.2.3在2s时启动；
@@ -21,7 +21,7 @@
 ###拓扑2截图如下： 
 ![](http://ww4.sinaimg.cn/mw1024/005Cglysgw1f55k309988j30ti0ix780.jpg)
 
-*  获得cap包second：0-0，1-0，1-1；
+*  获得cap包second：0-0，1-0，1-1, 4-0；
 *  采用了P2P信道和WIFI信道，STA线性加速度远离AP；
 *  服务器为10.1.1.2(作为AP)；
 *  客户10.1.3.3在2s时启动；
