@@ -97,8 +97,13 @@ main (int argc, char *argv[])
                                  "GridWidth", UintegerValue (3),
                                  "LayoutType", StringValue ("RowFirst"));
   //STA move as constant velocity.
-  mobility.SetMobilityModel ("ns3::ConstantVelocityMobilityModel");
+  mobility.SetMobilityModel ("ns3::ConstantAccelerationMobilityModel");
   mobility.Install (wifiStaNodes);
+  for(uint n=0;n<wifiStaNodes.GetN();n++)
+{
+   Ptr<ConstantAccelerationMobilityModel> mob=wifiStaNodes.Get(n)->GetObject<ConstantAccelerationMobilityModel>();
+   mob->SetVelocityAndAcceleration(Vector(20,0,0),Vector(1,0,0));
+}
 
   //AP don't move.
   mobility.SetMobilityModel ("ns3::ConstantPositionMobilityModel");

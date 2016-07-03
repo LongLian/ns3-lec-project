@@ -1,0 +1,63 @@
+#Project 3
+##陶月 2013010912026
+###系统日志信息：
+ *  向系统注册组件：NS-LOG-COMPONENT_DEFINE ("Third-project-1-ScriptExample");
+ *  激活已经注册好的组件，级别为LOG-LEVEL-INFO：   
+   *  LogComponentEnable ("UdpEchoClientApplication", LOG-LEVEL-INFO);
+   *   LogComponentEnable ("UdpEchoServerApplication", LOG-LEVEL-INFO);
+*  结果截图如下：
+ 
+![](http://ww2.sinaimg.cn/mw690/005Cglysgw1f5gms6fmpuj30ig0apgsz.jpg)
+
+### ASCII Tracing
+* CSMA:
+  * 法1：只获得1点的tracing信息
+  `csma.EnableAscii ("third-csma-ascii.tr",csmaDevices.Get (0), true);`
+  * 法2： 获得全部cama节点的tracing信息
+  `AsciiTraceHelper ascii;`
+  `csma.EnableAsciiAll (ascii.CreateFileStream ("third-csma-ascii.tr"));`
+
+*  WIFI：获得全部信息
+  *   `phy.EnableAsciiAll (ascii.CreateFileStream ("third_wifi_ascii.tr"));`
+*  获得文件：  third-csma-ascii.tr和third-wifi-ascii.tr，详见文件
+
+###PCAP Tracing
+* CSMA:
+  * csma.EnablePcap ("third", csmaDevices.Get (0), true);
+ *  csma.EnablePcap ("third", csmaDevices.Get (nCsma-1), true);
+* WIFI：
+ *  phy.EnablePcap ("third", apDevices.Get (0));
+ *  phy.EnablePcap ("third", staDevices.Get (nWifi-1));
+###wireshark
+* 下载wireshark：#apt-get install wireshark
+* 进入wireshark：#wireshark
+* 打开查看之前获取的几个cap文件，截图如下：
+
+![](http://ww2.sinaimg.cn/mw1024/005Cglysgw1f5fvd9eagjj30xd0elqef.jpg)
+
+###PyViz
+* 下载相关组件：#apt-get install python-dev python-pygraphviz python-kiwi python-pygoocanvas python-gnome2 python-gnomedesktop python-rsvg 
+* 下载pyviz：#apt-get install ipython
+* 运行：#./waf --run=third -vis 截图如下：
+* 开始时：
+
+![](http://ww1.sinaimg.cn/mw690/005Cglysgw1f5gmsirpm5j30zz0evdno.jpg)
+
+* 运行到3.7s时：
+
+![](http://ww3.sinaimg.cn/mw690/005Cglysgw1f5gmyq0f0sj30zw0e8n68.jpg)
+###gnuplot
+* 编辑出数据文档：#gedit third.dat（2列数据）
+* 下载gnuplot：#apt-get install gnuplot
+* 进入软件：#gnuplot
+* 绘图：
+  * gnuplot> set xlabel "time/S"
+  * gnuplot> set ylabel "client-number"
+  * gnuplot> set title "third-picture"
+  * gnuplot> unset key
+  * gnuplot> set xrange [0:10]
+  * gnuplot> set yrange [0:5]
+  * gnuplot> plot " third.dat" with linespoints
+* 结果如下：
+
+![](http://ww2.sinaimg.cn/mw1024/005Cglysgw1f5fvcpzvgrj30sf0cb0xd.jpg)

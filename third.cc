@@ -21,7 +21,11 @@
 
 using namespace ns3;
 
+//Register component!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 NS_LOG_COMPONENT_DEFINE ("Third_project_1_ScriptExample");
+
+
+
 
 int 
 main (int argc, char *argv[])
@@ -46,6 +50,7 @@ main (int argc, char *argv[])
 
   if (verbose)
     {
+      //Active the component!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       LogComponentEnable ("UdpEchoClientApplication", LOG_LEVEL_INFO);
       LogComponentEnable ("UdpEchoServerApplication", LOG_LEVEL_INFO);
     }
@@ -103,6 +108,11 @@ main (int argc, char *argv[])
   //STA move as constant velocity.
   mobility.SetMobilityModel ("ns3::ConstantVelocityMobilityModel");
   mobility.Install (wifiStaNodes);
+  for(uint n=0;n<wifiStaNodes.GetN();n++)
+{
+   Ptr<ConstantVelocityMobilityModel> mob=wifiStaNodes.Get(n)->GetObject<ConstantVelocityMobilityModel>();
+   mob->SetVelocity(Vector(20,0,0));
+}
 
   //AP don't move.
   mobility.SetMobilityModel ("ns3::ConstantPositionMobilityModel");
@@ -171,6 +181,13 @@ ApplicationContainer clientApps4 =
   phy.EnablePcap ("third", apDevices.Get (0));
   phy.EnablePcap ("third", staDevices.Get (nWifi-1));
 
+  AsciiTraceHelper ascii;
+  csma.EnableAscii ("third_csma_ascii.tr",csmaDevices.Get (0), true);
+  phy.EnableAsciiAll (ascii.CreateFileStream ("third_wifi_ascii.tr"));
+  //AsciiTraceHelper ascii;
+  //csma.EnableAsciiAll (ascii.CreateFileStream ("csma-packet-socket.tr"));
+
+ 
   Simulator::Run ();
   Simulator::Destroy ();
   return 0;
